@@ -93,7 +93,6 @@ function gitac() {
     git add -A
     git commit -m "$1"
     echo "Commit has been done successfully :D"
-    echo "Message was: '$1'"
   else
     echo "Provide a commit message! ;D "
   fi
