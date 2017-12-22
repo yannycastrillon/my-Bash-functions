@@ -82,6 +82,20 @@ function catman() {
   man "$1" | cat
 }
 
+# Move files with the same 'extension' from 'source' to 'destination'
+function mvbatch() {
+  if [[ "$1" == "" || "$2" == "" || "$3" == "" ]]
+  then
+    echo "1 arg must be an 'extension' ex: jpg"
+    echo "2 arg must be the 'source' path ex: ~/Downloads/images/"
+    echo "3 arg must be the 'destination (relative path)' path ex: ./app/assets/images/team"
+    #  example: mvbatch jpeg ~/Downloads/images/ app/assets/images/team
+  else
+    # get each file with ext and apply the mv command to a destination.
+    for f in $2*.$1 ; do mv "$f" $PWD/$3; done
+  fi
+}
+
 #######################################################
 ###################### GIT FUNCTIONS ##################
 ######################################################
