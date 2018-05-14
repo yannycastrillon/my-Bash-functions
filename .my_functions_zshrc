@@ -56,6 +56,10 @@ plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+############################################################
+######################## Vim Commands ######################
+############################################################
+bindkey -v # User vim commands on the terminal
 
 #######################################################
 ###################### ALIASES #######################
@@ -116,6 +120,12 @@ function gitac() {
 function gitpom() {
   git push origin master
   echo "Push done successfully"
+}
+
+# Git 'short log all'. Git log --oneline --decorate --graph --all
+function gitsla() {
+  git log --oneline --decorate --graph --all
+  echo "Short log all"
 }
 
 # User configuration
