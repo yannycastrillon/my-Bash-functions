@@ -134,6 +134,11 @@ function gitglog() {
   echo "Look for specific commit msg"
 }
 
+# Show custom git commits custom messages and authors.
+function gitpretty() {
+  git log --pretty=format:'%C(yellow)%h %C(reset) - %an [%C(green)%ar%C(reset)] => %s'
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
