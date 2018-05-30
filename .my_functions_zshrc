@@ -4,6 +4,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/yannycastrillon/.oh-my-zsh
 
+export PATH="$HOME/.rbenv/shims:$PATH"
+eval "$(rbenv init -)"
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -56,23 +59,49 @@ plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
 ############################################################
 ######################## Vim Commands ######################
 ############################################################
 bindkey -v # User vim commands on the terminal
 
-#######################################################
-###################### ALIASES #######################
-######################################################
+###################################################
+##################### aliases #####################
+###################################################
 alias cwd='cd "$(cat ~/.cwd)"'
 alias ls='ls -aGh'
 
-#######################################################
-###################### FUNCTIONS #####################
-######################################################
-function cd() {
+############################################################
+#################### Functions #############################
+############################################################
+
+export function cd() {
   builtin cd "$@";
-  echo "$PWD" > ~/.cwd
+  echo "$PWD" > ~/.cwd;
 }
 
 # Create file and cd into it.
@@ -100,71 +129,60 @@ function mvbatch() {
   fi
 }
 
-#######################################################
-###################### GIT FUNCTIONS ##################
-######################################################
+############################################################
+######################## GIT Function ######################
+############################################################
 
-# Add current changes to Staging area. Then commit with msg.
-function gitac() {
-  if ! [ -z "$1" ]
+# Add the current changes to stage area. Also does commit with message.
+function git_ac() {
+  if ! [ -z "$1" ];
   then
     git add -A
     git commit -m "$1"
-    echo "Commit has been done successfully :D"
+    echo "Commit has been done successfully"
   else
-    echo "Provide a commit message! ;D "
+    echo "Provide a commit message!"
   fi
 }
-
-# Git push origin master
-function gitpom() {
+# Add git function git_ push origin master automatic.
+function git_pom() {
   git push origin master
-  echo "Push done successfully"
+  echo "Push"
 }
 
 # Git 'short log all'. Git log --oneline --decorate --graph --all
-function gitsla() {
+function git_sla() {
   git log --oneline --decorate --graph --all
   echo "Short log all"
 }
 
 # Git command to search for a specific stream of character on the commit message
-function gitglog() {
+function git_glog() {
   git log -E -i --grep "$1"
   echo "Look for specific commit msg"
 }
 
 # Show custom git commits custom messages and authors.
-function gitpretty() {
+function git_pretty() {
   git log --pretty=format:'%C(yellow)%h %C(reset) - %an [%C(green)%ar%C(reset)] => %s'
 }
 
-# User configuration
+# Unstage the filename
+function git_unstage() {
+  if ! [ -z "$1" ];
+  then
+    git reset $1
+    echo "Remove from staging area file: $1"
+  else
+    echo "Please provide filename to be unstaged"
+  fi
+}
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# ^    -> Referes to the parent commit which is previous one.
+# HEAD -> current pointer, current branch of the current commit.
+# Soft -> Take the branch and point to that commit.
+#         Brings you back to the point where we were about to do the commit.
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-echo "$(hub alias -s)"
+function git_uncommit() {
+  git reset --soft HEAD^
+}
