@@ -130,7 +130,7 @@ function gitsla() {
 
 # Git command to search for a specific stream of character on the commit message
 function gitglog() {
-  git log --grep -E -i "$1"
+  git log -E -i --grep "$1"
   echo "Look for specific commit msg"
 }
 
