@@ -128,6 +128,12 @@ function gitsla() {
   echo "Short log all"
 }
 
+# Git command to search for a specific stream of character on the commit message
+function gitglog() {
+  git log --grep -E -i "$1"
+  echo "Look for specific commit msg"
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
