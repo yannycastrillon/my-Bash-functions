@@ -133,6 +133,19 @@ function mvbatch() {
 ######################## GIT Function ######################
 ############################################################
 
+# No arguments: Acts like 'git status'
+# With arguments: acts like 'git'
+function g() {
+  if [[ $# > 0 ]]; then
+    git $@
+  else
+    git status
+  fi
+}
+
+# Complete g as 'git'
+compdef g=git
+
 # Add the current changes to stage area. Also does commit with message.
 function git_ac() {
   if ! [ -z "$1" ];
