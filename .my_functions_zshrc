@@ -129,6 +129,18 @@ function mvbatch() {
   fi
 }
 
+# Copy content from ~/.gitconfig to ~/Documents/my-gitconfig.
+# To push my 'global gitconfig file' it to github and track changes.
+function cpgitconfig() {
+  filename=".gitconfig"
+  if [[ "$1" == "" ]]
+  then
+    echo "provide 'destination path' ~/Documents/my-gitconfig"
+  else
+    cp -f ~/filename $1/filename
+  fi
+}
+
 ############################################################
 ######################## GIT Function ######################
 ############################################################
