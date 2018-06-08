@@ -145,6 +145,16 @@ function cpgitconfig() {
 ######################## GIT Function ######################
 ############################################################
 
+function git-current-branch() {
+  git rev-parse --abbrev-ref HEAD
+}
+
+function git-rename-branch() {
+  old=$(git-current-branch)
+  git branch -m "$old" "$1"
+  git push origin --set-upstream "$1"
+  git push origin --delete "$old"
+}
 # No arguments: Acts like 'git status'
 # With arguments: acts like 'git'
 function g() {
