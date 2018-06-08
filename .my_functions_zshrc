@@ -158,38 +158,10 @@ function g() {
 # Complete g as 'git'
 compdef g=git
 
-# Add the current changes to stage area. Also does commit with message.
-function git_ac() {
-  if ! [ -z "$1" ];
-  then
-    git add -A
-    git commit -m "$1"
-    echo "Commit has been done successfully"
-  else
-    echo "Provide a commit message!"
-  fi
-}
 # Add git function git_ push origin master automatic.
 function git_pom() {
   git push origin master
   echo "Push"
-}
-
-# Git 'short log all'. Git log --oneline --decorate --graph --all
-function git_sla() {
-  git log --oneline --decorate --graph --all
-  echo "Short log all"
-}
-
-# Git command to search for a specific stream of character on the commit message
-function git_glog() {
-  git log -E -i --grep "$1"
-  echo "Look for specific commit msg"
-}
-
-# Show custom git commits custom messages and authors.
-function git_pretty() {
-  git log --pretty=format:'%C(yellow)%h %C(reset) - %an [%C(green)%ar%C(reset)] => %s'
 }
 
 # Unstage the filename
